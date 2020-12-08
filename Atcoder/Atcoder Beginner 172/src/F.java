@@ -6,12 +6,13 @@ import java.util.Collections;
 import java.util.StringTokenizer;
 
 // Hard Bit Manipulation
+// Unfinished.
 
 public class F {
     static FastScanner fs = new FastScanner();
 
     public static void main( String [] args){
-
+        int N = fs.nextInt();
     }
 
 
