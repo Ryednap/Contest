@@ -18,8 +18,16 @@ public class E {
     static FastScanner fs = new FastScanner();
 
     public static void main( String [] args){
-        char ch = fs.next().charAt(0);
-        System.out.print(Character.isUpperCase(ch) ? "A" : "a");
+        int N = fs.nextInt();
+        long [] arr = fs.readLongArray(N);
+        long xor = 0;
+        for(int i = 0; i < N ; ++i){
+            xor ^= arr[i];
+        }
+        for(int i = 0; i < N; ++i){
+            arr[i] ^= xor;
+            System.out.print(arr[i] + " ");
+        }
     }
 
 

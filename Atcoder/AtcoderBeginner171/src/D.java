@@ -6,25 +6,35 @@ import java.util.Collections;
 import java.util.StringTokenizer;
 
 
-// Upper Easy level
+// Easy problem
 
-// This was a new type of problem i.e Meet in the middle
-// The idea is of brute force so no problem :) :-
+// Just Maintain a look-up table and then do as per the problem.
 
 
 public class D {
     static FastScanner fs = new FastScanner();
+    static final int nax = (int)1e5 + 10;
 
     public static void main( String [] args){
         int N = fs.nextInt();
-        long [] arr = fs.readLongArray(N);
-        long xor = 0;
-        for(int i = 0; i < N ; ++i){
-            xor ^= arr[i];
+        long sum = 0;
+        int [] arr = new int[nax];
+
+
+        for(int i=  0; i < N; ++i){
+            int x = fs.nextInt();
+            sum += x;
+            arr[x]++;
         }
-        for(int i = 0; i < N; ++i){
-            arr[i] ^= xor;
-            System.out.print(arr[i] + " ");
+        int Q = fs.nextInt();
+        for(int i = 0;i < Q; ++i){
+            int a = fs.nextInt(), b = fs.nextInt();
+            sum -= ((long)a * arr[a]);
+            sum += ((long)b * arr[a]);
+
+            arr[b] += arr[a];
+            arr[a] = 0;
+            System.out.println(sum);
         }
     }
 
