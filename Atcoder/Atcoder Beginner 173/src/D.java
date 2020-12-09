@@ -7,6 +7,11 @@ import java.util.*;
 
 // Greedy Algorithm : (Just Trace the example and you will get the idea).
 
+/*
+    When we put an item on the circle note that we have two sides one from the clockwise left and other from
+    the ant-clockwise right. Means each one it can be used two times to maximise our result.
+ */
+
 public class D {
     static FastScanner fs = new FastScanner();
 

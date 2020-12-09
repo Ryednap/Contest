@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PipedOutputStream;
 import java.util.*;
 
 
@@ -11,75 +12,108 @@ public class E {
     static final int Mod = (int)1e9 + 7;
 
     public static void main(String[] args) {
-        int N = fs.nextInt(), K = fs.nextInt();
-        int [] A = fs.readArray(N);
+      int N = fs.nextInt(), K = fs.nextInt();
+      Vector<Integer> Positive = new Vector<>();
+      Vector<Integer> Negative = new Vector<>();
 
-        sort(A);
+      for(int i = 0; i < N; ++i){
+          int x = fs.nextInt();
+          if(x < 0) Negative.add(x);
+          else Positive.add(x);
+      }
 
-        long answer = 1;
-        if(A[N-1] == 0) answer = 0;
-        else if(A[N - 1] < 0 || A[0] >= 0){
+      long answer = 1;
 
-            for(int i = N - 1; i > N - 1 - K; --i) answer = Mul(answer,A[i]);
+      if(Negative.size() == 0){ // Case 1
+          Positive.sort(Collections.reverseOrder());
+          for(int i = 0; i < K; ++i){
+              answer = Mul(answer,Positive.elementAt(i));
+          }
 
-        } else {
-            Vector<Integer> Positive = new Vector<>();
-            Vector<Integer> Negative = new Vector<>();
-            for(int i = 0; i < N; ++i){
-                if(A[i] < 0) Negative.add(A[i]);
-                else Positive.add(A[i]);
-            }
+      } else if(Positive.size() == 0){ // Case 2
+          if(K%2 == 0) Collections.sort(Negative);
+          else Negative.sort(Collections.reverseOrder());
 
-            while(K > 0){
-                if(Positive.size() == 1 && Negative.size() == 1){
-                    answer = Mul( answer, Positive.lastElement());
-                    Positive.remove(Positive.size() - 1);
-                    --K;
+          for(int i = 0; i < K; ++i){
+              answer = Mul(answer, Negative.elementAt(i));
+          }
 
-                    if(K == 1){
-                        answer = Mul(answer,Negative.lastElement());
-                        Negative.remove(Negative.size() - 1);
-                        --K;
-                    }
-                } else if(K == 1) {
-                    if(Positive.size() != 0) answer = Mul(answer, Positive.lastElement());
-                    else answer = Mul(answer, Negative.elementAt(0));
+      } else if(Positive.lastElement() == 0){ // Case 3
+          if(K % 2 == 0){
+              Collections.sort(Negative);
+              for(int i = 0; i < K; ++i){
+                  answer = Mul(answer,Negative.elementAt(i));
+              }
 
-                } else {
-                    long neg = 1, pos = 1;
-                    if(Negative.size() >= 2){
-                        neg = Negative.lastElement();
-                        neg *= Negative.elementAt(Negative.size() - 2);
-                    }
+          } else answer = 0;
 
-                    if(Positive.size() >= 1){
-                        pos *= Positive.lastElement();
-                    }
-                    if(Positive.size() >= 2){
-                        pos *= Positive.elementAt(Positive.size() - 2);
-                    }
+      } else if(K == N) { // Case 4
+          for(Integer x : Positive) answer = Mul(answer, x);
+          for(Integer x : Negative) answer = Mul(answer, x);
 
-                    if(pos > neg){
-                        answer = Mul(answer, pos);
-                        for(int x = 0; x < 2; ++x ){
-                            if(Positive.size() == 0) break;
-                            Positive.remove(Positive.size() - 1);
-                            --K;
-                        }
+      } else if(K == N - 1){ // Case 5
+          Collections.sort(Positive);
+          Collections.sort(Negative);
+          if(Positive.elementAt(0) == 0){
+              for(int i = 1; i < Positive.size(); ++i) answer = Mul(answer,Positive.elementAt(i));
+              for(Integer x : Negative) answer = Mul(answer,x);
 
-                    } else {
-                        answer = Mul(answer, neg);
-                        for(int x = 0; x < 2; ++x){
-                            Negative.remove(Negative.size() - 1);
-                            --K;
-                        }
-                    }
+              answer = Math.max(0, answer);
+          } else {
+              if(Negative.size() % 2 != 0){
+                  Negative.remove(Negative.size() - 1);
+              } else {
+                  Positive.remove(0);
+              }
 
-                }
-            }
-        }
+              for(Integer x : Positive) answer = Mul(answer, x);
+              for (Integer x : Negative) answer = Mul(answer,x);
 
-        System.out.println((answer + Mod)%Mod);
+          }
+      } else { // Case 7
+
+          Negative.sort(Collections.reverseOrder());
+          Positive.sort(Collections.reverseOrder());
+          int p,n;
+          if(K % 2 == 0){
+              p = Positive.size() - 1;
+
+          } else {
+              answer = Mul(answer, Positive.lastElement());
+              p = Positive.size() - 2;
+          }
+
+          n = Negative.size() - 1;
+
+          while(K > 0){
+              int i = p, j = n;
+              long pos = 1, neg = 1;
+              int count = 0;
+              while(i >= 0 && count != 2){
+                  pos *= Positive.elementAt(i);
+                  --i; count++;
+              }
+              count = 0;
+              while(j >= 0 && count != 2){
+                  neg *= Negative.elementAt(j);
+                  --j; count++;
+              }
+
+              if(pos > neg){
+                  answer = Mul(answer,pos);
+                  K -= (p - Math.max(i,0));
+                  p = i;
+
+              } else {
+                  answer = Mul(answer,neg);
+                  K -= ( n - Math.max(j,0));
+                  n = i;
+              }
+          }
+
+      }
+      System.out.print(answer);
+
     }
 
     static long Mul(long a, long b){
