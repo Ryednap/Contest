@@ -17,6 +17,7 @@ import java.util.*;
    data structure for that character else we would iterate O( (#size) ^ 2) times.
 
    Else everything is trivial BFS.
+
 */
 public class E {
     static FastScanner fs = new FastScanner();

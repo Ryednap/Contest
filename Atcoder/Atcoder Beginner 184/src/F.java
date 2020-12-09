@@ -10,6 +10,7 @@ import java.util.*;
 // The idea is of brute force so no problem :) :-
 
 
+
 public class F {
     static FastScanner fs = new FastScanner();
 
