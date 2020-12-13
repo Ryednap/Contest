@@ -7,7 +7,7 @@ import java.util.*;
 // Upper Easy level
 
 // This was a new type of problem i.e Meet in the middle
-// The idea is of brute force so no problem :) :-
+// The idea is of stbrute force so no problem :) :-
 
 
 
