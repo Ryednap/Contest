@@ -1,0 +1,49 @@
+4
+No +y No
+4
+No -y No
+4
+No +z No
+4
+No -z No
+6
+No +y +y +y No
+6
+No +y +y -y No
+6
+No +y +y +z No
+6
+No +y +y -z No
+5
+No +y +y No
+5
+No +y -y No
+5
+No +y +z No
+5
+No +y -z No
+5
+No -y +y No
+5
+No -y -y No
+5
+No -y +z No
+5
+No -y -z No
+5
+No +z +y No
+5
+No +z -y No
+5
+No +z +z No
+5
+No +z -z No
+5
+No -z +y No
+5
+No -z -y No
+5
+No -z +z No
+5
+No -z -z No
+0
