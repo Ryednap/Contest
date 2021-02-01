@@ -5,66 +5,61 @@ using namespace std;
 #include "uj.h"
 #endif
 
+// Note the priority :
+
+// 4 WA because of trying to remove all the piles at once
+// It said if possible move the left one possible
+// Then i - 3 or i - 1.
+
+using vs = vector<string>;
+
 int main( ) {
-	string str, inp;
-	while( getline(cin, str) ) {
-		if(str == "#") break;
-		vector<vector<string >> cards(52);
-		
-		int idx = 0;
+	while(true) {
+		vector<vs> cards;
 		for(int _ = 0; _ < 2; ++_) {
-			stringstream ss(str);
-			while(ss >> inp) {
-				cards[idx++].push_back(inp);
+			for(int i = 0; i < 26; ++i) {
+				string s; cin >> s;
+				if(s == "#") return 0;
+				vs st; st.push_back(s);
+				cards.push_back(st);
 			}
-			getline(cin, str);
 		}
-	
-	
-		auto Valid = [] (string & a, string & b) {
-			return (a[0] == b[0] || a[1] == b[1]);
+		
+		auto Match = [&] (int a, int b) {
+			string & s = cards[a].back();
+			string & t = cards[b].back();
+			return ( s[0] == t[0] ) || ( s[1] == t[1] );
 		};
 		
-
-		
 		bool ok = true;
-		
-		do {
-			
+		while( ok ) {
 			ok = false;
-			int n = (int)cards.size();
-			for(int i = 1; i < n; ++i) {
-				n = (int)cards.size();
-				
-				auto Move = [&](int x, int y) {
-					while((int)cards[y].size() > 0 && Valid(cards[x].back(), cards[y].back())) {
-						ok = true;
-						cards[x].push_back(cards[y].back());
-						cards[y].pop_back();
-					}
-				};
-				
-				if(i >= 3 && Valid(cards[i].back(), cards[i -1].back())) {
-					Move(i - 3, i);
-				} else {
-					Move(i - 1, i);
-				} 
-				
-				if((int)cards[i].size() == 0) cards.erase(cards.begin() + i);
+			for(int i = 1; i < (int)cards.size(); ++i) {
+				if(i - 3 >= 0 && Match(i , i - 3)) {
+					cards[i - 3].push_back( cards[i].back() );  cards[i].pop_back();
+					if(cards[i].empty()) cards.erase(cards.begin() + i);
+					ok = true;
+					break;	
+					
+				} else if(Match(i, i - 1)) {
+					cards[i - 1].push_back( cards[i].back() );  cards[i].pop_back();
+					if(cards[i].empty()) cards.erase(cards.begin() + i);
+					ok = true;
+					break;
+					
+				}
 			}
-			
-			
-		} while(ok) ;
-		
-
-		const int n = (int)cards.size();
-		printf("%d piles remaining:", n);
-		for(int i = 0; i < n; ++i) {
-			printf(" %d", (int)cards[i].size());
 		}
-		puts("");
-			
-	}
-	
+		
+		const int n = (int)cards.size();
+		if(n == 1) printf("%d pile remaining:", n);
+		else printf("%d piles remaining:", n);
+		
+		for(auto s : cards) {
+			printf(" %d", (int)s.size());
+		}
+		puts(""); 	
+	}	
+		
 	return 0;	
 }

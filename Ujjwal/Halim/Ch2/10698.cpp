@@ -62,7 +62,9 @@ struct Game {
 		return ok;
 	}
 	void print() {
-		printf("%s %d %d %d %d %d %.2f\n", name.c_str(), points, n , g, c, gd, p);
+		printf("%s %d %d %d %d %d", name.c_str(), points, n , g, c, gd);
+		if(p < 0) puts( " N/A");
+		else printf(" %.2f\n", p);
 	}
 };
 
@@ -109,6 +111,7 @@ int main( ) {
 			ans[i].print();
 			if(i != (int)ans.size() - 1 && !ans[i].Equal(ans[i + 1])) ++pos;
 		}
+		puts("");
 	}		
 	return 0;	
 }

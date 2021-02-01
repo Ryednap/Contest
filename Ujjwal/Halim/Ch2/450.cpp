@@ -5,6 +5,7 @@ using namespace std;
 #include "uj.h"
 #endif
 
+// A very information hevy problem.
 
 static inline void ltrim(string & s) {
 	s.erase(s.begin(), std :: find_if(s.begin(), s.end(), [](unsigned char ch) {

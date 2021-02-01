@@ -5,6 +5,13 @@ using namespace std;
 #include "uj.h"
 #endif
 
+// A very traditional question for stack
+// O(n^2) complexity but i feel that it can be done in O(n Logn) time some data-structres 
+
+// The idea is that once we are at some number in th sequeunce then the next number or element can either be previous or the any after the current number
+// in the original stack. eg .. a b  c d e f g.  If we are at d then next can be c or e or f or g anything other than is invalid as stack always preserve
+// order .
+
 int main( ) {
 	int n;
 	while(scanf("%d", &n) != EOF) {

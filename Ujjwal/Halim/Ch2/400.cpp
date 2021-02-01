@@ -5,6 +5,8 @@ using namespace std;
 #include "uj.h"
 #endif
 
+// The problem seems easy but no clear info on how to format it.
+
 int main( ) {
 	
 	

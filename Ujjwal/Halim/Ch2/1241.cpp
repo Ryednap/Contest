@@ -5,7 +5,7 @@ using namespace std;
 #include "uj.h"
 #endif
 
-// O(nlogn) complexity
+// O(2^n logn) complexity direct implementation
 
 int main( ) {
 	int qq;

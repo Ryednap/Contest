@@ -10,48 +10,43 @@ using namespace std;
 
 int main( ) {
 	int tt = 0;
-	string str;
+	string  str;
 	while( cin >> str && str != "end") {
+		int answer = 0;
 		const int n = (int)str.length();
-		vector<int> done(n, false);
 		reverse(str.begin(), str.end());
-		map<char, int> last;
+		vector<int> done(n, false);
+		
 		
 		for(int i = 0; i < n; ++i) {
-			last[str[i]] = i;
-		}
-		
-		auto Set = [&](const int &x) {
-			for(int i = 0; i < n; ++i) {
-				if(str[i] == str[x]) done[i] = true;
-			}
-		};
-		
-		int answer = 1;
-		pair<char, int> prev = {str[0], 0};
-		
-		for(int i = 1; i < n; ++i) {
 			if(done[i]) continue;
-			if(str[i] < prev.f) {
-				
-				vector<bool> together(n, false);
-				for(int j = prev.s; j <= last[prev.f]; ++j) {
-					together[j] = false;
+			map<char, int> invalid;
+			
+			function < void(int) > Set = [&] (int idx) {
+				int last = idx;
+				for(int j = idx; j < n; ++j) {
+						if(str[idx] == str[j]) {
+							done[j] = true;
+							last = j;
+						};
 				}
 				
-				char c = prev.f;
-				for(int j = last[prev.f] + 1; j < n; ++j) {
-					if(!done[j] && str[j] >= c) {
-						c = str[j];
+				for(int j = idx; j < last; ++j) {
+					if(str[j] != str[last]) invalid[str[j]] = true;
+				}
+				
+				for(int j = last + 1; j < n; ++j) {
+					if(!invalid[j] && !done[j] && str[j] > str[last]) {
 						Set(j);
+						return;
 					}
 				}
-				
-				Set(prev.s);
-				++answer;
-				prev = {str[i], i};
-			} else prev = {str[i], i};
+			};
+			
+			Set(i);
+			++answer;
 		}
+					
 		printf("Case %d: %d\n", ++tt, answer);
 	}
 	

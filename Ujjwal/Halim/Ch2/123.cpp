@@ -5,6 +5,13 @@ using namespace std;
 #include "uj.h"
 #endif
 
+// The same rule for string problems apply here 
+/**
+ * For comparison use a common form for both the string
+ * Check for trimming spaces and store (Be careful, if the space is part of the input)
+ * Use assert for checking if string store as key.
+ */
+
 static inline void ltrim(std :: string & s) {
 	s.erase(s.begin(), std :: find_if(s.begin(), s.end(), [] (unsigned char ch)  {
 		return !std :: isspace(ch);

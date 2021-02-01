@@ -5,6 +5,8 @@ using namespace std;
 #include "uj.h"
 #endif
 
+// Direct easy problem greedy just use up all the best items O(nlogn) complexity.
+
 int main( ) {
 	int qq;
 	scanf("%d", &qq);

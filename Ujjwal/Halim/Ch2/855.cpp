@@ -9,6 +9,10 @@ using pii = pair<int, int>;
 #define f first
 #define s second
 
+// Recommended 
+
+// If such problem occurs then it's better to use mean and median and then check , however median is ans
+
 int main( ) {
 	int qq;
 	scanf("%d", &qq);
@@ -24,7 +28,7 @@ int main( ) {
 		}
 		sort(a.begin(), a.end());
 		sort(b.begin(), b.end());
-		int x = (f >> 1) - !(f & 1);
+		int x = (f >> 1) - !(f & 1); // a way to get middle lowest element in case of even.
 		
 		printf("(Street: %d, Avenue: %d)\n", a[x], b[x]);
 	}
