@@ -6,7 +6,10 @@ using namespace std;
 #include "uj.h"
 #endif
 
+
 // Not guaranteed that categories are different hmm ! something fishy might happen. But let's assume first this and then if WA then we will change
+
+// Edit1 : WA because of 1)- Wrong output format 2)- Some more mistake
 
 // I would kinda easy problem but lot's of constraints and medium coding also some un-clear statements so i had to assume non - presentce
 // 5 min 12 min to read and think
