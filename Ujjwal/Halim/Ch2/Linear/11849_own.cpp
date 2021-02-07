@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-
 #ifdef LOCAL
 #include "uj.h"
 #endif
@@ -10,7 +9,7 @@ template<class T, class U>
 struct Node {
 	T key;
 	U value;
-	int h = 1, left_size = 0;
+	int h = 1;
 	Node * left = nullptr, *right = nullptr;
 
 	Node () {}
@@ -130,7 +129,6 @@ struct Map { // AVL implementation use of C++ map
 				return new Ntu (p);
 			} else if(root -> key > p.first) {
 				root -> left = Insert(root -> left, p);
-				root -> left_size = root -> left -> left_size + 1;
 			} else if(root -> key < p.first) {
 				root -> right = Insert(root -> right, p);
 			} else return root; // Same key found
@@ -224,6 +222,21 @@ struct Map { // AVL implementation use of C++ map
 	}
 #endif
 
-int main() {
-	return 0;
+int main( ) {
+	int n, m;
+	while( scanf("%d %d", &n, &m) && n && m ) {
+		Map<int, int> a;
+		int answer = 0;
+		for(int i = 0; i < n; ++i) {
+			int x; scanf("%d", &x);
+			a[x] = 1;
+		}
+		for(int i = 0; i < m; ++i) {
+			int x; scanf("%d", &x);
+			if(a[x]) ++answer;
+		}
+		printf("%d\n", answer);
+	}
+	
+	return 0;	
 }
