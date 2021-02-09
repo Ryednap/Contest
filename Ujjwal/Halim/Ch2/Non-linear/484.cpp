@@ -10,7 +10,7 @@ using namespace std;
 
 int main() {
 	string str;
-	// I don't know why but do you guys think problem should hide the input format to make it hard ?
+	// I don't know why but I think problem should hide the input format to make it hard ?
 	// I had guessed that maybe they have multiple cases but never thought those are to be compiled into one cases
 	map<int, int> mapper;
 	map<int, int> done;
