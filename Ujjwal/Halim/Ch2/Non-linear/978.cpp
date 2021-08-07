@@ -10,7 +10,7 @@ using pii = pair<int, int>;
 #define f first
 #define s second
 
-
+// check 
 // Actually some run-time error even flags are unable to detect it.
 // Actually some run-time error even flags are unable to detect it.
 
